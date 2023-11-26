@@ -1,6 +1,6 @@
 # neutralino-build-scripts
 
-**Build-Automation for macOS and Windows App-Bundles**.
+**Neutralino Build-Automation for macOS and Windows App-Bundles**.
 
 This set of scripts replace the `neu build` command for macOS- and Windows-builds. Instead of plain binaries, it outputs ready-to-use app-bundles.
 
@@ -59,7 +59,9 @@ This starts the following procedure:
 
 All build targets are created in the ./dist folder.
 
-Because the macOS-platform consists of 3 architectures, you might want to add different resources after the app has been built. That's what **postproc-mac.sh** is for. Just add your custom code there and you are good to go.
+Because the macOS-platform consists of 3 binary architectures, you might want to add different resources after the app has been built. That's what **postproc-mac.sh** is for. Just add your custom code there and you are good to go.
+
+Keep in mind that alle additional resources have to be copied to `${APP_RESOURCES}/`, which resolves to `MyApp.app/Contents/Resources`. If you place them elsewhere, your signature or notarization might break.
 
 The `buildScript/mac` JSON segment in the config file contains the following fields:
 
