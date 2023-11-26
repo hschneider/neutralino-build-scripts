@@ -1,3 +1,5 @@
+![](https://marketmix.com/git-assets/neutralino-build-scripts/neutralino-macos-appbundles.jpg)
+
 # neutralino-build-scripts
 
 **Neutralino Build-Automation for macOS and Windows App-Bundles**.
