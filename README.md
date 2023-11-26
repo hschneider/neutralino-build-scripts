@@ -6,7 +6,7 @@
 
 This set of scripts replace the `neu build` command for macOS- and Windows-builds. Instead of plain binaries, it outputs ready-to-use app-bundles.
 
-> The macOS build-script solves the problem, that Neutralino only produces plain macOS binaries and not macOS AppBundles. These files can be signed, but not notarized.
+> The macOS build-script solves the problem, that Neutralino only produces plain macOS binaries and not macOS AppBundles. These files cannot be signed and notarized.
 > **build-mac.sh** generates valid AppBundles which pass Apple's notarization process successfully :-)
 
 ## Setup
