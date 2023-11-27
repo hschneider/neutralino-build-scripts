@@ -27,18 +27,24 @@ If your are a Mac-user and never heard of Homebrew, visit https://brew.sh
 Add this to your neutralino.config.json:
 
 ```json
- "buildScript": {
+  "buildScript": {
     "mac": {
       "architecture": ["x64", "arm64", "universal"],
       "minimumOS": "10.13.0",
-      "appName": "ExtBunDemo",
-      "appBundleName": "ExtBunDemo",
-      "appIdentifier": "com.marketmix.ext.bun.demo",
-      "appIcon": "icon.icns"
+      "appName":  "ExtBunDemo",
+      "appBundleName":    "ExtBunDemo",
+      "appIdentifier":    "com.marketmix.ext.bun.demo",
+      "appIcon":  "icon.icns"
     },
     "win": {
       "architecture": ["x64"],
-      "appName": "ExtBunDemo.exe"
+      "appName":  "ExtBunDemo.exe"
+    },
+    "linux": {
+      "architecture": ["x64", "arm64", "armhf"],
+      "appName":  "ExtBunDemo",
+      "appIcon":  "icon.png",
+      "appIconLocation":  "/usr/share/ExtBunDemo/icon.png"
     }
   }
 ```
