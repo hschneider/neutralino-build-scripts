@@ -48,8 +48,8 @@ fi
 
 echo
 echo -e "\033[1mBuilding Neutralino Apps ...\033[0m"
-#rm -rf "./dist/${APP_BINARY}"
-#neu build
+rm -rf "./dist/${APP_BINARY}"
+neu build
 echo -e "\033[1mDone.\033[0m"
 
 for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
