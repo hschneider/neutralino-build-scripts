@@ -7,7 +7,7 @@
 This set of scripts replace the `neu build` command for macOS- and Windows-builds. Instead of plain binaries, it outputs ready-to-use app-bundles.
 
 > The macOS build-script solves the problem, that Neutralino only produces plain macOS binaries and not macOS AppBundles. These files cannot be signed and notarized.
-> **build-mac.sh** generates valid AppBundles which pass Apple's notarization process successfully :-)
+> **build-mac.sh** generates valid AppBundles which pass Apple's notarization process successfully :-
 
 ## Setup
 
@@ -65,7 +65,7 @@ Because the macOS-platform consists of 3 binary architectures, you might want to
 
 Keep in mind that alle additional resources have to be copied to `${APP_RESOURCES}/`, which resolves to `MyApp.app/Contents/Resources`. If you place them elsewhere, your signature or notarization might break.
 
-The `buildScript/mac` JSON segment in the config file contains the following fields:
+The `buildScript/mac` JSON segment in the config-file contains the following fields:
 
 | Key           | Description                                                  |
 | ------------- | ------------------------------------------------------------ |
@@ -89,25 +89,60 @@ This starts the following procedure:
 - Copy all resources and extensions to the app-bundle.
 - Execute `postproc-win.sh`
 
-All build is created in the ./dist folder.
+The build is created in the ./dist folder.
 
 In contrast to macOS, the whole process is straight-forward. The app-bundle is just a plain folder with the binary, resources.neu and the extensions-folder. You can also put custom code into `postproc-win.sh` to perform any action after the bundle has been built.
 
-The `buildScript/win` JSON segment in the config file contains the following fields:
+The `buildScript/win` JSON segment in the config-file contains the following fields:
 
 | Key          | Description                                                  |
 | ------------ | ------------------------------------------------------------ |
 | architecture | This is an array of the architectures, you want to build. Because Neutralino currently only support 'x64', you should leave this untouched. |
 | appName      | The app-name as displayed in the File Explorer.              |
 
-## Build for Linux?
+## Build for Linux
 
-Felld free to send me a Pull-Request :-)
+```bash
+./build-linux.sh
+```
+
+This starts the following procedure:
+
+- Erase the target folder ./dist/APPNAME  
+- Run `neu build`
+- Copy all resources and extensions to the app-bundle.
+- Clones  the  .desktop-file from `_app_scaffolds/linux` to the app-bundle and adapts its content.
+- Execute `postproc-win.sh`
+
+All build targets are created in the ./dist folder.
+
+Because the Linux-platform consists of 3 binary architectures, you might want to add different resources after the app has been built. That's what **postproc-linux.sh** is for. Just add your custom code there and you are good to go.
+
+> The **APP_NAME.desktop**-file and the **app icon** have to be copied to their proper places, when you deploy your app. 
+
+The following paths are proposed:
+
+| Resource           | Path                                     |
+| ------------------ | ---------------------------------------- |
+| Application Folder | /usr/share/APP_NAME                      |
+| Application Icon   | /usr/share/APP_NAME/icon.png             |
+| Desktop File       | /usr/share/applications/APP_NAME.desktop |
+
+The `buildScript/win` JSON segment in the config-file contains the following fields:
+
+| Key             | Description                                                  |
+| --------------- | ------------------------------------------------------------ |
+| architecture    | This is an array of the architectures, you want to build. In our example we build all 3 architectures. |
+| appName         | The app-name as displayed in the File Explorer.              |
+| appIcon         | Path to the app-icon in .png- or svg-format. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. |
+| appIconLocation | This is the icon's path **after** the has been installed on a Linux system. That path is written to the .desktop-file. |
 
 ## More about Neutralino
 
 [NeutralinoJS Home](https://neutralino.js.org) 
 
 [Neutralino related blog posts at marketmix.com](https://marketmix.com/de/tag/neutralinojs/)
+
+
 
 <img src="https://marketmix.com/git-assets/star-me-2.svg">

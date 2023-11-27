@@ -1,0 +1,6 @@
+[Desktop Entry]
+Version=1.0
+Name={APP_NAME}
+Icon={APP_ICON_LOCATION}
+Terminal=false
+Type=Application

@@ -63,6 +63,12 @@
     "win": {
       "architecture": ["x64"],
       "appName":  "ExtBunDemo.exe"
+    },
+    "linux": {
+      "architecture": ["x64", "arm64", "armhf"],
+      "appName":  "ExtBunDemo",
+      "appIcon":  "icon.png",
+      "appIconLocation":  "/usr/share/ExtBunDemo/icon.png"
     }
   }
 }
