@@ -82,6 +82,8 @@ The `buildScript/mac` JSON segment in the config-file contains the following fie
 | appIdentifier | The macOS app-identifier.                                    |
 | appIcon       | Path to the app-icon in .icns-format. If only the filename is submitted, the file is expected in the project's root. |
 
+If you want to streamline your deployment process under macOS, you might also be interested in **[Signing and Notarizing](https://github.com/hschneider/macos-sign-notarize)** from commandline.
+
 ## Build for Windows
 
 ```bash
