@@ -79,7 +79,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     mkdir -p "${APP_DST}"
     
     if [ -e "./${APP_ICON}" ]; then
-        echo "  Cloning App-Scaffold ..."
+        echo "  Cloning scaffold ..."
         set +f
         cp ${APP_SRC}/* "${APP_DST}/"
         set -f

@@ -85,7 +85,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
         exit 1
     fi
 
-    echo "  Cloning App-Scaffold ..."
+    echo "  Cloning scaffold ..."
     mkdir -p "${APP_DST}"
     cp "${APP_SRC}" "${APP_DST}/${APP_NAME}.desktop"
 
