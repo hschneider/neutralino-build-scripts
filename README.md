@@ -2,9 +2,9 @@
 
 # neutralino-build-scripts
 
-**Neutralino Build-Automation for macOS and Windows App-Bundles**.
+**Neutralino Build-Automation for macOS, Linus and Windows App-Bundles**.
 
-This set of scripts replace the `neu build` command for macOS- and Windows-builds. Instead of plain binaries, it outputs ready-to-use app-bundles.
+This set of scripts replace the `neu build` command for macOS-, Linux and Windows-builds. Instead of plain binaries, it outputs ready-to-use app-bundles.
 
 > The macOS build-script solves the problem, that Neutralino only produces plain macOS binaries and not macOS AppBundles. These files cannot be signed and notarized.
 > **build-mac.sh** generates valid AppBundles which pass Apple's notarization process successfully :-
@@ -38,7 +38,8 @@ Add this to your neutralino.config.json:
     },
     "win": {
       "architecture": ["x64"],
-      "appName":  "ExtBunDemo.exe"
+      "appName":  "ExtBunDemo.exe",
+      "appIcon": "icon.ico"
     },
     "linux": {
       "architecture": ["x64", "arm64", "armhf"],
