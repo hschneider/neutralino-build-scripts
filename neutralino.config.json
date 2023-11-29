@@ -62,7 +62,8 @@
     },
     "win": {
       "architecture": ["x64"],
-      "appName":  "ExtBunDemo.exe"
+      "appName":  "ExtBunDemo.exe",
+      "appIcon":  "icon.ico"
     },
     "linux": {
       "architecture": ["x64", "arm64", "armhf"],

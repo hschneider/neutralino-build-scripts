@@ -80,7 +80,7 @@ The `buildScript/mac` JSON segment in the config-file contains the following fie
 | appName       | The app-name as displayed in the Finder.                     |
 | appBundleName | The macOS app-bundle name.                                   |
 | appIdentifier | The macOS app-identifier.                                    |
-| appIcon       | Path to the app-icon in .icns-format. If only the filename is submitted, the file is expected in the project's root. |
+| appIcon       | Path to the app-icon in **.icns-format**. If only the filename is submitted, the file is expected in the project's root. |
 
 If you want to streamline your deployment process under macOS, you might also be interested in **[Sign and Notarize Automation](https://github.com/hschneider/macos-sign-notarize)** from commandline.
 
@@ -96,6 +96,7 @@ This starts the following procedure:
 - Run `neu build`
 - Copy all resources and extensions to the app-bundle.
 - Execute `postproc-win.sh`
+- Create the `install-icon.cmd` helper script, if an app icon file exists.
 
 The build is created in the ./dist folder.
 
@@ -107,6 +108,7 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 | ------------ | ------------------------------------------------------------ |
 | architecture | This is an array of the architectures, you want to build. Because Neutralino currently only support 'x64', you should leave this untouched. |
 | appName      | The app-name as displayed in the File Explorer.              |
+| appIcon      | Path to the app-icon in **.ico-format**. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. To apply the icon to the executable file, you'll have to run **[Resource Hacker](https://www.angusj.com/resourcehacker/)** from a Windows machine. To do so, you can call **install-icon.cmd** from the app-bundle. |
 
 ## Build for Linux
 
@@ -142,7 +144,7 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 | --------------- | ------------------------------------------------------------ |
 | architecture    | This is an array of the architectures, you want to build. In our example we build all 3 architectures. |
 | appName         | The app-name as displayed in the File Explorer.              |
-| appIcon         | Path to the app-icon in .png- or svg-format. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. |
+| appIcon         | Path to the app-icon in .**png- or svg-format**. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. |
 | appIconLocation | This is the icon's path **after** the has been installed on a Linux system. That path is written to the .desktop-file. |
 
 ## More about Neutralino

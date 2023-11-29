@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# build-win.sh 1.0.0
+# build-win.sh
 #
 # Windows build script for NeutralinoJS
 #
@@ -12,7 +12,7 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.0'
+VERSION='1.0.1'
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Windows platform, version ${VERSION}\033[0m"
@@ -34,11 +34,14 @@ fi
 APP_ARCH_LIST=($(jq -r '.buildScript.win.architecture[]' ${CONF}))
 APP_BINARY=$(jq -r '.cli.binaryName' ${CONF})
 APP_NAME=$(jq -r '.buildScript.win.appName' ${CONF})
+APP_ICON=$(jq -r '.buildScript.win.appIcon' ${CONF})
+
+APP_SRC=./_app_scaffolds/win
 
 echo
 echo -e "\033[1mBuilding Neutralino Apps ...\033[0m"
-rm -rf "./dist/${APP_BINARY}"
-neu build
+#rm -rf "./dist/${APP_BINARY}"
+#neu build
 echo -e "\033[1mDone.\033[0m"
 
 for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
@@ -69,6 +72,15 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     echo "  Creating target folder ..."
     mkdir -p "${APP_DST}"
     
+    if [ -e "./${APP_ICON}" ]; then
+        echo "  Cloning App-Scaffold ..."
+        set +f
+        cp ${APP_SRC}/* "${APP_DST}/"
+        set -f
+        sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/install-icon.cmd"
+        sed -i '' "s/{APP_ICON}/${APP_ICON}/g" "${APP_DST}/install-icon.cmd"
+    fi
+
     echo "  Copying App-Content:"
     echo "    - Binary File"
     cp "${EXE}" "${APP_DST}/${APP_NAME}"
@@ -78,6 +90,11 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     if [ -e "./${EXT}" ]; then
         echo "    - Extensions"
         cp -r "${EXT}" "${APP_DST}/"
+    fi
+
+    if [ -e "./${APP_ICON}" ]; then
+        echo "    - Icon"
+        cp -r "${APP_ICON}" "${APP_DST}/"
     fi
 
     if [ -e "./postproc-win.sh" ]; then
