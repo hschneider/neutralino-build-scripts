@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# postproc-linux.sh 1.0.0
+# postproc-linux.sh 1.0.1
 #
 # Linux build script post-processor.
 #
@@ -10,5 +10,20 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-# Add your custom code here:
-# cp SOME_FILE "${APP_DST/"
+if [ $APP_ARCH = "x64" ]; then
+    :   
+    # Handle Intel releases here
+    # cp SOME_FILE "${APP_DST}/"
+fi
+
+if [ $APP_ARCH = "arm64" ]; then
+    :   
+    # Handle ARM releases here
+    # cp SOME_FILE "${APP_DST}/"
+fi
+
+if [ $APP_ARCH = "armhf" ]; then
+    :   
+    # Handle ARM hard_float releases here.
+    # cp SOME_FILE "${APP_DST}/"
+fi
