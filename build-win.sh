@@ -12,7 +12,7 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.1'
+VERSION='1.0.2'
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Windows platform, version ${VERSION}\033[0m"
@@ -104,6 +104,11 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
     echo
     echo -e "\033[1mBuild finished.\033[0m"
+
+    if [ -e "./${APP_ICON}" ]; then
+        echo
+        echo -e "\033[32m\033[1mDouble-click install-icon.cmd on a Windows machine to apply the app icon.\033[0m"
+    fi
 done
 
 echo 
