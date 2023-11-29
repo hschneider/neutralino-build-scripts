@@ -6,8 +6,8 @@ if exist %TOOL% (
     del install-icon.cmd
 )
 else (
-    echo "Please install Resource Hacker first"
-    echo "Press any key."
+    echo "Please install 'Resource Hacker' first."
+    echo "Press any key ..."
     pause
     start "" "https://www.angusj.com/resourcehacker/"
 )
