@@ -2,7 +2,7 @@
 
 # neutralino-build-scripts
 
-**Neutralino Build-Automation for macOS, Linus and Windows App-Bundles**.
+**Neutralino Build-Automation for macOS, Linux and Windows App-Bundles**.
 
 This set of scripts replace the `neu build` command for macOS-, Linux and Windows-builds. Instead of plain binaries, it outputs ready-to-use app-bundles.
 
