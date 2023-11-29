@@ -12,7 +12,7 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.4'
+VERSION='1.0.5'
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Windows platform, version ${VERSION}\033[0m"
