@@ -12,7 +12,7 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.0'
+VERSION='1.0.1'
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Linux platform, version ${VERSION}\033[0m"
@@ -46,11 +46,17 @@ if [ ! -e "./${APP_SRC}" ]; then
     exit 1
 fi
 
-echo
-echo -e "\033[1mBuilding Neutralino Apps ...\033[0m"
-rm -rf "./dist/${APP_BINARY}"
-neu build
-echo -e "\033[1mDone.\033[0m"
+if [ "$1" != "--test" ]; then
+    echo
+    echo -e "\033[1mBuilding Neutralino Apps ...\033[0m"
+    echo
+    rm -rf "./dist/${APP_BINARY}"
+    neu build
+    echo -e "\033[1mDone.\033[0m"
+else
+    echo
+    echo "Skipped 'neu build' in test-mode ..."
+fi
 
 for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
@@ -83,7 +89,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     mkdir -p "${APP_DST}"
     cp "${APP_SRC}" "${APP_DST}/${APP_NAME}.desktop"
 
-    echo "  Copying App-Content:"
+    echo "  Copying content:"
     echo "    - Binary File"
     cp "${EXE}" "${APP_DST}/"
     echo "    - Resources"

@@ -12,7 +12,7 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.3'
+VERSION='1.0.4'
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Windows platform, version ${VERSION}\033[0m"
@@ -38,11 +38,17 @@ APP_ICON=$(jq -r '.buildScript.win.appIcon' ${CONF})
 
 APP_SRC=./_app_scaffolds/win
 
-echo
-echo -e "\033[1mBuilding Neutralino Apps ...\033[0m"
-rm -rf "./dist/${APP_BINARY}"
-neu build
-echo -e "\033[1mDone.\033[0m"
+if [ "$1" != "--test" ]; then
+    echo
+    echo -e "\033[1mBuilding Neutralino Apps ...\033[0m"
+    echo
+    rm -rf "./dist/${APP_BINARY}"
+    neu build
+    echo -e "\033[1mDone.\033[0m"
+else
+    echo
+    echo "Skipped 'neu build' in test-mode ..."
+fi
 
 for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
@@ -81,7 +87,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
         sed -i '' "s/{APP_ICON}/${APP_ICON}/g" "${APP_DST}/install-icon.cmd"
     fi
 
-    echo "  Copying App-Content:"
+    echo "  Copying content:"
     echo "    - Binary File"
     cp "${EXE}" "${APP_DST}/${APP_NAME}"
     echo "    - Resources"
