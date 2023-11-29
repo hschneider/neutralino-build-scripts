@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# postproc-win.sh 1.0.0
+# postproc-win.sh 1.0.1
 #
 # Windows build script post-processor.
 #
@@ -10,5 +10,8 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-# Add your custom code here:
-# cp SOME_FILE "${APP_DST/"
+if [ $APP_ARCH = "x64" ]; then
+    :   
+    # Handle Intel releases here
+    # cp SOME_FILE "${APP_DST}/"
+fi
