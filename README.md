@@ -31,21 +31,21 @@ Add this to your neutralino.config.json:
     "mac": {
       "architecture": ["x64", "arm64", "universal"],
       "minimumOS": "10.13.0",
-      "appName":  "ExtBunDemo",
-      "appBundleName":    "ExtBunDemo",
-      "appIdentifier":    "com.marketmix.ext.bun.demo",
+      "appName": "ExtBunDemo",
+      "appBundleName": "ExtBunDemo",
+      "appIdentifier": "com.marketmix.ext.bun.demo",
       "appIcon":  "icon.icns"
     },
     "win": {
       "architecture": ["x64"],
-      "appName":  "ExtBunDemo.exe",
+      "appName": "ExtBunDemo.exe",
       "appIcon": "icon.ico"
     },
     "linux": {
       "architecture": ["x64", "arm64", "armhf"],
-      "appName":  "ExtBunDemo",
-      "appIcon":  "icon.png",
-      "appIconLocation":  "/usr/share/ExtBunDemo/icon.png"
+      "appName": "ExtBunDemo",
+      "appIcon": "icon.png",
+      "appIconLocation": "/usr/share/ExtBunDemo/icon.png"
     }
   }
 ```
