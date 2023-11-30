@@ -150,9 +150,10 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 
 ## More about Neutralino
 
-[NeutralinoJS Home](https://neutralino.js.org) 
+- [NeutralinoJS Home](https://neutralino.js.org) 
 
-[Neutralino related blog posts at marketmix.com](https://marketmix.com/de/tag/neutralinojs/)
+- [Neutralino related blog posts at marketmix.com](https://marketmix.com/de/tag/neutralinojs/)
+
 
 
 
