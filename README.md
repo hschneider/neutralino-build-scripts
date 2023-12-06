@@ -111,6 +111,10 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 | appName      | The app-name as displayed in the File Explorer.              |
 | appIcon      | Path to the app-icon in **.ico-format**. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. To apply the icon to the executable file, you'll have to run **[Resource Hacker](https://www.angusj.com/resourcehacker/)** from a Windows machine. To do so, just double-click **install-icon.cmd** in the app-bundle. |
 
+Icon installer in action:
+
+![](https://marketmix.com//git-assets/neutralino-build-scripts/neutralino-icon-installer.gif)
+
 ## Build for Linux
 
 ```bash
