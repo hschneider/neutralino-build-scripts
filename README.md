@@ -113,7 +113,7 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 
 The icon installer in action:
 
-![](https://marketmix.com//git-assets/neutralino-build-scripts/neutralino-icon-installer.gif){width=300px}
+![](https://marketmix.com//git-assets/neutralino-build-scripts/neutralino-icon-installer.gif)
 
 ## Build for Linux
 
