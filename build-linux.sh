@@ -5,14 +5,14 @@
 # Linux build script for NeutralinoJS
 #
 # Call:
-# ./build-linux
+# ./build-linux.sh
 #
 # Requirements:
 # brew install jq 
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.1'
+VERSION='1.0.2'
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Linux platform, version ${VERSION}\033[0m"

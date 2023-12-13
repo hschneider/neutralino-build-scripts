@@ -5,7 +5,7 @@
 # macOS build script for NeutralinoJS
 #
 # Call:
-# ./build-mac
+# ./build-mac.sh
 #
 # Requirements:
 # brew install jq

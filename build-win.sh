@@ -5,14 +5,14 @@
 # Windows build script for NeutralinoJS
 #
 # Call:
-# ./build-win
+# ./build-win.sh
 #
 # Requirements:
 # brew install jq 
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.5'
+VERSION='1.0.6'
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Windows platform, version ${VERSION}\033[0m"
