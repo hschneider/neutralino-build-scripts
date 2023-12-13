@@ -5,14 +5,16 @@
 # macOS build script for NeutralinoJS
 #
 # Call:
-# ./build-mac 
+# ./build-mac
 #
 # Requirements:
-# brew install jq 
+# brew install jq
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.1'
+VERSION='1.0.3'
+
+OS=$(uname -s)
 
 echo
 echo -e "\033[1mNeutralino BuildScript for macOS platform, version ${VERSION}\033[0m"
@@ -78,6 +80,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     echo "  Bundle Name:   ${APP_BUNDLE}"
     echo "  Identifier:    ${APP_ID}"
     echo "  Icon:          ${APP_ICON}"
+    echo "  Source Folder: ${APP_SRC}"
     echo "  Target Folder: ${APP_DST}"
     echo
 
@@ -93,7 +96,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
     echo "  Cloning scaffold ..."
     mkdir -p "${APP_DST}"
-    cp -r "${APP_SRC}/" "${APP_DST}"
+    cp -r ${APP_SRC}/* ${APP_DST}/
 
     echo "  Copying content:"
     echo "    - Binary File"
@@ -112,19 +115,30 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     fi
 
     echo "  Processing Info.plist ..."
-    sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/Contents/Info.plist"
-    sed -i '' "s/{APP_BUNDLE}/${APP_BUNDLE}/g" "${APP_DST}/Contents/Info.plist"
-    sed -i '' "s/{APP_ID}/${APP_ID}/g" "${APP_DST}/Contents/Info.plist"
-    sed -i '' "s/{APP_VERSION}/${APP_VERSION}/g" "${APP_DST}/Contents/Info.plist"
-    sed -i '' "s/{APP_MIN_OS}/${APP_MIN_OS}/g" "${APP_DST}/Contents/Info.plist"
+
+    if [ "$OS" == "Linux" ]; then
+      sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_BUNDLE}/${APP_BUNDLE}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_ID}/${APP_ID}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_VERSION}/${APP_VERSION}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_MIN_OS}/${APP_MIN_OS}/g" "${APP_DST}/Contents/Info.plist"
+    else
+      sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i '' "s/{APP_BUNDLE}/${APP_BUNDLE}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i '' "s/{APP_ID}/${APP_ID}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i '' "s/{APP_VERSION}/${APP_VERSION}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i '' "s/{APP_MIN_OS}/${APP_MIN_OS}/g" "${APP_DST}/Contents/Info.plist"
+    fi
 
     if [ -e "./postproc-mac.sh" ]; then
         echo "  Running post-processor ..."
         . postproc-mac.sh
     fi
 
-    echo "  Clearing Extended Attributes ..."
-    find "${APP_DST}" -type f -exec xattr -c {} \;
+    if [ "$OS" == "Darwin" ]; then
+      echo "  Clearing Extended Attributes ..."
+      find "${APP_DST}" -type f -exec xattr -c {} \;
+    fi
 
     echo
     echo -e "\033[1mBuild finished, ready to sign and notarize.\033[0m"
