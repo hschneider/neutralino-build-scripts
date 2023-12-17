@@ -12,7 +12,7 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.7'
+VERSION='1.0.8'
 
 OS=$(uname -s)
 
@@ -37,6 +37,10 @@ APP_ARCH_LIST=($(jq -r '.buildScript.win.architecture[]' ${CONF}))
 APP_BINARY=$(jq -r '.cli.binaryName' ${CONF})
 APP_NAME=$(jq -r '.buildScript.win.appName' ${CONF})
 APP_ICON=$(jq -r '.buildScript.win.appIcon' ${CONF})
+
+if [[ $APP_NAME != *".exe"* ]]; then
+    APP_NAME=${APP_NAME}.exe
+fi
 
 APP_SRC=./_app_scaffolds/win
 
