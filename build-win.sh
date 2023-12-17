@@ -12,7 +12,9 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.6'
+VERSION='1.0.7'
+
+OS=$(uname -s)
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Windows platform, version ${VERSION}\033[0m"
@@ -79,12 +81,20 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     mkdir -p "${APP_DST}"
     
     if [ -e "./${APP_ICON}" ]; then
+
         echo "  Cloning scaffold ..."
+
         set +f
         cp ${APP_SRC}/* "${APP_DST}/"
         set -f
-        sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/install-icon.cmd"
-        sed -i '' "s/{APP_ICON}/${APP_ICON}/g" "${APP_DST}/install-icon.cmd"
+
+        if [ "$OS" == "Darwin" ]; then
+          sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/install-icon.cmd"
+          sed -i '' "s/{APP_ICON}/${APP_ICON}/g" "${APP_DST}/install-icon.cmd"
+        else
+          sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/install-icon.cmd"
+          sed -i "s/{APP_ICON}/${APP_ICON}/g" "${APP_DST}/install-icon.cmd"
+        fi
     fi
 
     echo "  Copying content:"

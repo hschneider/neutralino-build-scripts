@@ -12,7 +12,9 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.2'
+VERSION='1.0.3'
+
+OS=$(uname -s)
 
 echo
 echo -e "\033[1mNeutralino BuildScript for Linux platform, version ${VERSION}\033[0m"
@@ -106,9 +108,14 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     fi
 
     echo "  Processing Desktop File ..."
-    sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
-    sed -i '' "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
 
+    if [ "$OS" == "Darwin" ]; then
+      sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i '' "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+    else
+      sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+    fi
 
     if [ -e "./postproc-linux.sh" ]; then
         echo "  Running post-processor ..."

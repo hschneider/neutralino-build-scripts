@@ -12,7 +12,7 @@
 #
 # (c)2023 Harald Schneider - marketmix.com
 
-VERSION='1.0.3'
+VERSION='1.0.5'
 
 OS=$(uname -s)
 
@@ -116,18 +116,18 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
     echo "  Processing Info.plist ..."
 
-    if [ "$OS" == "Linux" ]; then
-      sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/Contents/Info.plist"
-      sed -i "s/{APP_BUNDLE}/${APP_BUNDLE}/g" "${APP_DST}/Contents/Info.plist"
-      sed -i "s/{APP_ID}/${APP_ID}/g" "${APP_DST}/Contents/Info.plist"
-      sed -i "s/{APP_VERSION}/${APP_VERSION}/g" "${APP_DST}/Contents/Info.plist"
-      sed -i "s/{APP_MIN_OS}/${APP_MIN_OS}/g" "${APP_DST}/Contents/Info.plist"
-    else
+    if [ "$OS" == "Darwin" ]; then
       sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/Contents/Info.plist"
       sed -i '' "s/{APP_BUNDLE}/${APP_BUNDLE}/g" "${APP_DST}/Contents/Info.plist"
       sed -i '' "s/{APP_ID}/${APP_ID}/g" "${APP_DST}/Contents/Info.plist"
       sed -i '' "s/{APP_VERSION}/${APP_VERSION}/g" "${APP_DST}/Contents/Info.plist"
       sed -i '' "s/{APP_MIN_OS}/${APP_MIN_OS}/g" "${APP_DST}/Contents/Info.plist"
+    else
+      sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_BUNDLE}/${APP_BUNDLE}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_ID}/${APP_ID}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_VERSION}/${APP_VERSION}/g" "${APP_DST}/Contents/Info.plist"
+      sed -i "s/{APP_MIN_OS}/${APP_MIN_OS}/g" "${APP_DST}/Contents/Info.plist"
     fi
 
     if [ -e "./postproc-mac.sh" ]; then
