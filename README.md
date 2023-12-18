@@ -97,7 +97,7 @@ This starts the following procedure:
 - Run `neu build`
 - Copy all resources and extensions to the app-bundle.
 - Execute `postproc-win.sh`
-- Create the `install-icon.cmd` helper script, if an app icon file exists.
+- Create the `install-icon.cmd` helper script from its template in `_app_scaffolds/win/`, if an app icon file exists.
 
 The build is created in the ./dist folder.
 
