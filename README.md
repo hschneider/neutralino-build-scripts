@@ -101,7 +101,9 @@ This starts the following procedure:
 
 The build is created in the ./dist folder.
 
-In contrast to macOS, the whole process is straight-forward. The app-bundle is just a plain folder with the binary, resources.neu and the extensions-folder. You can also put custom code into `postproc-win.sh` to perform any action after the bundle has been built.
+In contrast to macOS, the whole process is straight-forward. The app-bundle is just a plain folder with the binary, resources.neu, the extensions-folder and WebView2Loader.dll.  The DLL can be deleted, if you deploy on WIndows 11 or newer.
+
+You can also put custom code into `postproc-win.sh` to perform any action after the bundle has been built.
 
 The `buildScript/win` JSON segment in the config-file contains the following fields:
 
@@ -160,5 +162,4 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 
 
 
-
-<img src="https://marketmix.com/git-assets/star-me-2.svg">
+<img src="https://marketmix.com/git-assets/star-me-2.svg">4
