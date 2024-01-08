@@ -12,7 +12,7 @@
 #
 # (c)2023-2024 Harald Schneider - marketmix.com
 
-VERSION='1.0.5'
+VERSION='1.0.6'
 
 OS=$(uname -s)
 
@@ -71,6 +71,11 @@ fi
 for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
     APP_DST=./dist/linux_${APP_ARCH}/${APP_NAME}
+
+    if [ -e "./preproc-linux.sh" ]; then
+        echo "  Running pre-processor ..."
+        . preproc-linux.sh
+    fi
 
     EXE=./dist/${APP_BINARY}/${APP_BINARY}-linux_${APP_ARCH}
     RES=./dist/${APP_BINARY}/resources.neu

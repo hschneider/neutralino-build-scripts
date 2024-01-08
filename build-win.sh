@@ -10,9 +10,9 @@
 # Requirements:
 # brew install jq 
 #
-# (c)2023 Harald Schneider - marketmix.com
+# (c)2023-2024 Harald Schneider - marketmix.com
 
-VERSION='1.0.9'
+VERSION='1.1.0'
 
 OS=$(uname -s)
 
@@ -59,6 +59,11 @@ fi
 for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
     APP_DST=./dist/win_${APP_ARCH}
+
+    if [ -e "./preproc-win.sh" ]; then
+        echo "  Running pre-processor ..."
+        . preproc-win.sh
+    fi
  
     EXE=./dist/${APP_BINARY}/${APP_BINARY}-win_${APP_ARCH}.exe
     RES=./dist/${APP_BINARY}/resources.neu

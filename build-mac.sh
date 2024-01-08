@@ -10,9 +10,9 @@
 # Requirements:
 # brew install jq
 #
-# (c)2023 Harald Schneider - marketmix.com
+# (c)2023-2024 Harald Schneider - marketmix.com
 
-VERSION='1.0.5'
+VERSION='1.0.6'
 
 OS=$(uname -s)
 
@@ -67,6 +67,11 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     APP_DST=./dist/mac_${APP_ARCH}/${APP_NAME}.app
     APP_MACOS=${APP_DST}/Contents/MacOS
     APP_RESOURCES=${APP_DST}/Contents/Resources
+
+    if [ -e "./preproc-mac.sh" ]; then
+        echo "  Running pre-processor ..."
+        . preproc-mac.sh
+    fi
 
     EXE=./dist/${APP_BINARY}/${APP_BINARY}-mac_${APP_ARCH}
     RES=./dist/${APP_BINARY}/resources.neu

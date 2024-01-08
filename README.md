@@ -63,13 +63,16 @@ This starts the following procedure:
 
 - Erase the target folder ./dist/APPNAME  
 - Run `neu build`
+- Execute `preproc-mac.sh`
 - Clone the app-bundle scaffold from `_app_scaffolds/mac` and adapt it to your app.
 - Copy all resources and extensions to the app-bundle.
 - Execute `postproc-mac.sh`
 
 All build targets are created in the ./dist folder.
 
-Because the macOS-platform consists of 3 binary architectures, you might want to add different resources after the app has been built. That's what **postproc-mac.sh** is for. Just add your custom code there and you are good to go.
+Because the macOS-platform consists of 3 binary architectures, you might want to add different resources after the app has been built. That's what `postproc-mac.sh` is for. Just add your custom code there and you are good to go.
+
+If you need to prepare platform-specific resource before bundling starts, you can add your custom code to `preproc-mac.sh`.
 
 Keep in mind that alle additional resources have to be copied to `${APP_RESOURCES}/`, which resolves to `MyApp.app/Contents/Resources`. If you place them elsewhere, your signature or notarization might break.
 
@@ -96,6 +99,7 @@ This starts the following procedure:
 
 - Erase the target folder ./dist/APPNAME  
 - Run `neu build`
+- Execute `preproc-win.sh`
 - Copy all resources and extensions to the app-bundle.
 - Execute `postproc-win.sh`
 - Create the `install-icon.cmd` helper script from its template in `_app_scaffolds/win/`, if an app icon file exists.
@@ -103,6 +107,8 @@ This starts the following procedure:
 The build is created in the ./dist folder.
 
 In contrast to macOS, the whole process is straight-forward. The app-bundle is just a plain folder with the binary, resources.neu, the extensions-folder and WebView2Loader.dll.  The DLL can be deleted, if you deploy on WIndows 11 or newer.
+
+If you need to prepare platform-specific resource before bundling starts, you can add your custom code to `preproc-win.sh`.
 
 You can also put custom code into `postproc-win.sh` to perform any action after the bundle has been built.
 
@@ -128,13 +134,16 @@ This starts the following procedure:
 
 - Erase the target folder ./dist/APPNAME  
 - Run `neu build`
+- Execute `preproc-linux.sh`
 - Copy all resources and extensions to the app-bundle.
 - Clones  the  .desktop-file from `_app_scaffolds/linux` to the app-bundle and adapts its content.
-- Execute `postproc-win.sh`
+- Execute `postproc-linux.sh`
 
 All build targets are created in the ./dist folder.
 
-Because the Linux-platform consists of 3 binary architectures, you might want to add different resources after the app has been built. That's what **postproc-linux.sh** is for. Just add your custom code there and you are good to go.
+Because the Linux-platform consists of 3 binary architectures, you might want to add different resources after the app has been built. That's what `postproc-linux.sh` is for. Just add your custom code there and you are good to go.
+
+If you need to prepare platform-specific resource before bundling starts, you can add your custom code to `preproc-linux.sh`.
 
 > The **APP_NAME.desktop**-file and the **app icon** have to be copied to their proper places, when you deploy your app. 
 
