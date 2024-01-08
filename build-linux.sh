@@ -12,7 +12,7 @@
 #
 # (c)2023-2024 Harald Schneider - marketmix.com
 
-VERSION='1.0.4'
+VERSION='1.0.5'
 
 OS=$(uname -s)
 
@@ -125,11 +125,13 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     if [ "$OS" == "Darwin" ]; then
       sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i '' "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i '' "s|{APP_ICON_PATH}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i '' "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i '' "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/${APP_NAME}.desktop"
     else
       sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i "s|{APP_ICON_PATH}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/${APP_NAME}.desktop"
     fi

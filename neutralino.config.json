@@ -70,7 +70,7 @@
       "appName":  "ExtBunDemo",
       "appIcon":  "icon.png",
       "appPath":  "/usr/share/ExtBunDemo",
-      "appIconLocation":  "/usr/share/ExtBunDemo/icon.png"
+      "appIconPath":  "/usr/share/ExtBunDemo/icon.png"
     }
   }
 }

@@ -2,7 +2,7 @@
 Version=1.0
 Encoding=UTF-8
 Name={APP_NAME}
-Icon={APP_ICON_LOCATION}
+Icon={APP_ICON_PATH}
 Exec={APP_EXEC}
 Path={APP_PATH}
 Terminal=false

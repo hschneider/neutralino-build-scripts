@@ -148,13 +148,13 @@ The following paths are proposed:
 
 The `buildScript/win` JSON segment in the config-file contains the following fields:
 
-| Key             | Description                                                  |
-| --------------- | ------------------------------------------------------------ |
-| architecture    | This is an array of the architectures, you want to build. In our example we build all 3 architectures. |
-| appName         | The app-name as displayed in the File Explorer.              |
-| appPath         | The application apth                                         |
-| appIcon         | Path to the app-icon in .**png- or svg-format**. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. |
-| appIconLocation | This is the icon's path **after** the has been installed on a Linux system. That path is written to the .desktop-file. |
+| Key          | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| architecture | This is an array of the architectures, you want to build. In our example we build all 3 architectures. |
+| appName      | The app-name as displayed in the File Explorer.              |
+| appPath      | The application path without the executable name and without ending slash. |
+| appIcon      | Path to the app-icon in .**png- or svg-format**. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. |
+| appIconPath  | This is the icon's path **after** the has been installed on a Linux system. That path is written to the .desktop-file. |
 
 ## More about Neutralino
 
