@@ -10,9 +10,9 @@
 # Requirements:
 # brew install jq 
 #
-# (c)2023 Harald Schneider - marketmix.com
+# (c)2023-2024 Harald Schneider - marketmix.com
 
-VERSION='1.0.3'
+VERSION='1.0.4'
 
 OS=$(uname -s)
 
@@ -39,6 +39,14 @@ APP_BINARY=$(jq -r '.cli.binaryName' ${CONF})
 APP_NAME=$(jq -r '.buildScript.linux.appName' ${CONF})
 APP_ICON=$(jq -r '.buildScript.linux.appIcon' ${CONF})
 APP_ICON_LOCATION=$(jq -r '.buildScript.linux.appIconLocation' ${CONF})
+
+if jq -e '.buildScript.linux.appPath'  "${CONF}" &> /dev/null; then
+  APP_PATH=$(jq -r '.buildScript.linux.appPath' ${CONF})
+else
+  echo
+  echo -e "\033[31m\033[1mWARNING: Please set appPath in neutralino.config.json!\033[0m"
+  APP_PATH="/usr/share/${APP_NAME}"
+fi
 
 APP_SRC=./_app_scaffolds/linux/myapp.desktop
 
@@ -68,12 +76,17 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     RES=./dist/${APP_BINARY}/resources.neu
     EXT=./dist/${APP_BINARY}/extensions
 
-    echo 
+    APP_EXEC=${APP_PATH}/${APP_BINARY}-linux_${APP_ARCH}
+    chmod +x "${APP_DST}"
+
+    echo
     echo -e "\033[1mBuilding App Bundle (${APP_ARCH}):\033[0m"
     echo
     echo "  App Name:           ${APP_NAME}"
+    echo "  App Executable:     ${APP_EXEC}"
     echo "  Icon:               ${APP_ICON}"
     echo "  Icon Install Path:  ${APP_ICON_LOCATION}"
+    echo "  App Path:           ${APP_PATH}"
     echo "  Target Folder:      ${APP_DST}"
     echo
 
@@ -112,9 +125,13 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     if [ "$OS" == "Darwin" ]; then
       sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i '' "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i '' "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i '' "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/${APP_NAME}.desktop"
     else
       sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/${APP_NAME}.desktop"
     fi
 
     if [ -e "./postproc-linux.sh" ]; then
@@ -129,11 +146,11 @@ done
 echo
 echo -e "\033[1mI propose the following paths for your installer:\033[0m"
 echo
-echo "  Application Folder: /usr/share/${APP_NAME}"
+echo "  Application Folder: ${APP_PATH}"
 echo "  Application Icon:   ${APP_ICON_LOCATION}"
 echo "  Desktop File:       /usr/share/applications/${APP_NAME}.desktop"
 echo
-echo "If you change the Application Icon's path, you have to adapt its path in the .desktop file."
+echo "If you change the application- or icon- path, you have to adapt the related fields in the .desktop file."
 
 echo 
 echo -e "\033[1mAll done.\033[0m"

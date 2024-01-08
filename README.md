@@ -45,6 +45,7 @@ Add this to your neutralino.config.json:
       "architecture": ["x64", "arm64", "armhf"],
       "appName": "ExtBunDemo",
       "appIcon": "icon.png",
+      "appPath":  "/usr/share/ExtBunDemo",
       "appIconLocation": "/usr/share/ExtBunDemo/icon.png"
     }
   }
@@ -151,6 +152,7 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 | --------------- | ------------------------------------------------------------ |
 | architecture    | This is an array of the architectures, you want to build. In our example we build all 3 architectures. |
 | appName         | The app-name as displayed in the File Explorer.              |
+| appPath         | The application apth                                         |
 | appIcon         | Path to the app-icon in .**png- or svg-format**. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. |
 | appIconLocation | This is the icon's path **after** the has been installed on a Linux system. That path is written to the .desktop-file. |
 

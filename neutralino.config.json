@@ -69,6 +69,7 @@
       "architecture": ["x64", "arm64", "armhf"],
       "appName":  "ExtBunDemo",
       "appIcon":  "icon.png",
+      "appPath":  "/usr/share/ExtBunDemo",
       "appIconLocation":  "/usr/share/ExtBunDemo/icon.png"
     }
   }
