@@ -12,7 +12,7 @@
 #
 # (c)2023-2024 Harald Schneider - marketmix.com
 
-VERSION='1.0.6'
+VERSION='1.0.8'
 
 OS=$(uname -s)
 
@@ -38,7 +38,7 @@ APP_VERSION=$(jq -r '.version' ${CONF})
 APP_BINARY=$(jq -r '.cli.binaryName' ${CONF})
 APP_NAME=$(jq -r '.buildScript.linux.appName' ${CONF})
 APP_ICON=$(jq -r '.buildScript.linux.appIcon' ${CONF})
-APP_ICON_LOCATION=$(jq -r '.buildScript.linux.appIconLocation' ${CONF})
+APP_ICON_PATH=$(jq -r '.buildScript.linux.appIconLocation' ${CONF})
 
 if jq -e '.buildScript.linux.appPath'  "${CONF}" &> /dev/null; then
   APP_PATH=$(jq -r '.buildScript.linux.appPath' ${CONF})
@@ -48,11 +48,28 @@ else
   APP_PATH="/usr/share/${APP_NAME}"
 fi
 
+APP_BASEPATH=$(echo ${APP_PATH} | awk -v replacement="" -v search="/${APP_NAME}" '{gsub(search, replacement)}1')
+
+if jq -e '.buildScript.linux.appIconPath'  "${CONF}" &> /dev/null; then
+  APP_ICON_PATH=$(jq -r '.buildScript.linux.appIconPath' ${CONF})
+else
+  echo
+  echo -e "\033[31m\033[1mWARNING: Please set appIconPath in neutralino.config.json!\033[0m"
+  APP_ICON_PATH="/usr/share/${APP_NAME}"
+fi
+
 APP_SRC=./_app_scaffolds/linux/myapp.desktop
+INSTALL_SCRIPT=./_app_scaffolds/linux/install.sh
 
 if [ ! -e "./${APP_SRC}" ]; then
     echo
     echo -e "\033[31m\033[1mERROR: App scaffold not found: ${APP_SRC}\033[0m"
+    exit 1
+fi
+
+if [ ! -e "./${INSTALL_SCRIPT}" ]; then
+    echo
+    echo -e "\033[31m\033[1mERROR: App install script not found: ${INSTALL_SCRIPT}\033[0m"
     exit 1
 fi
 
@@ -90,7 +107,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     echo "  App Name:           ${APP_NAME}"
     echo "  App Executable:     ${APP_EXEC}"
     echo "  Icon:               ${APP_ICON}"
-    echo "  Icon Install Path:  ${APP_ICON_LOCATION}"
+    echo "  Icon Install Path:  ${APP_ICON_PATH}"
     echo "  App Path:           ${APP_PATH}"
     echo "  Target Folder:      ${APP_DST}"
     echo
@@ -108,6 +125,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     echo "  Cloning scaffold ..."
     mkdir -p "${APP_DST}"
     cp "${APP_SRC}" "${APP_DST}/${APP_NAME}.desktop"
+    cp "${INSTALL_SCRIPT}" "${APP_DST}"
 
     echo "  Copying content:"
     echo "    - Binary File"
@@ -129,16 +147,30 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
 
     if [ "$OS" == "Darwin" ]; then
       sed -i '' "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
-      sed -i '' "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
-      sed -i '' "s|{APP_ICON_PATH}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i '' "s|{APP_ICON_LOCATION}|${APP_ICON_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i '' "s|{APP_ICON_PATH}|${APP_ICON_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i '' "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i '' "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/${APP_NAME}.desktop"
+
+      sed -i '' "s|{APP_NAME}|${APP_NAME}|g" "${APP_DST}/install.sh"
+      sed -i '' "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/install.sh"
+      sed -i '' "s|{APP_BASEPATH}|${APP_BASEPATH}|g" "${APP_DST}/install.sh"
+      sed -i '' "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/install.sh"
+      sed -i '' "s|{APP_ICON}|${APP_ICON}|g" "${APP_DST}/install.sh"
+      sed -i '' "s|{APP_ICON_PATH}|${APP_ICON_PATH}|g" "${APP_DST}/install.sh"
     else
       sed -i "s/{APP_NAME}/${APP_NAME}/g" "${APP_DST}/${APP_NAME}.desktop"
-      sed -i "s|{APP_ICON_LOCATION}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
-      sed -i "s|{APP_ICON_PATH}|${APP_ICON_LOCATION}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i "s|{APP_ICON_LOCATION}|${APP_ICON_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
+      sed -i "s|{APP_ICON_PATH}|${APP_ICON_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/${APP_NAME}.desktop"
       sed -i "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/${APP_NAME}.desktop"
+
+      sed -i "s|{APP_NAME}|${APP_NAME}|g" "${APP_DST}/install.sh"
+      sed -i "s|{APP_PATH}|${APP_PATH}|g" "${APP_DST}/install.sh"
+      sed -i "s|{APP_BASEPATH}|${APP_BASEPATH}|g" "${APP_DST}/install.sh"
+      sed -i "s|{APP_EXEC}|${APP_EXEC}|g" "${APP_DST}/install.sh"
+      sed -i "s|{APP_ICON}|${APP_ICON}|g" "${APP_DST}/install.sh"
+      sed -i "s|{APP_ICON_PATH}|${APP_ICON_PATH}|g" "${APP_DST}/install.sh"
     fi
 
     if [ -e "./postproc-linux.sh" ]; then
@@ -154,10 +186,10 @@ echo
 echo -e "\033[1mI propose the following paths for your installer:\033[0m"
 echo
 echo "  Application Folder: ${APP_PATH}"
-echo "  Application Icon:   ${APP_ICON_LOCATION}"
+echo "  Application Icon:   ${APP_ICON_PATH}"
 echo "  Desktop File:       /usr/share/applications/${APP_NAME}.desktop"
 echo
-echo "If you change the application- or icon- path, you have to adapt the related fields in the .desktop file."
+echo "You can call ./install.sh to start a quick installation on the target machine."
 
 echo 
 echo -e "\033[1mAll done.\033[0m"

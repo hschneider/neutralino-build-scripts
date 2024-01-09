@@ -165,6 +165,8 @@ The `buildScript/win` JSON segment in the config-file contains the following fie
 | appIcon      | Path to the app-icon in .**png- or svg-format**. If only the filename is submitted, the file is expected in the project's root. The icon is copied from this path into the app-bundle. |
 | appIconPath  | This is the icon's path **after** the has been installed on a Linux system. That path is written to the .desktop-file. |
 
+Calling `sudo ./install.sh` from your build folder automatically installs the app to the locations you defined.
+
 ## More about Neutralino
 
 - [NeutralinoJS Home](https://neutralino.js.org) 
