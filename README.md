@@ -175,4 +175,4 @@ Calling `sudo ./install.sh` from your build folder automatically installs the ap
 
 
 
-<img src="https://marketmix.com/git-assets/star-me-2.svg">4
+<img src="https://marketmix.com/git-assets/star-me-2.svg">
