@@ -12,7 +12,7 @@
 #
 # (c)2023-2024 Harald Schneider - marketmix.com
 
-VERSION='1.0.6'
+VERSION='1.0.7'
 
 OS=$(uname -s)
 
@@ -106,6 +106,7 @@ for APP_ARCH in "${APP_ARCH_LIST[@]}"; do
     echo "  Copying content:"
     echo "    - Binary File"
     cp "${EXE}" "${APP_MACOS}/main"
+    chmod 755 "${APP_MACOS}/main"
     echo "    - Resources"
     cp "${RES}" "${APP_RESOURCES}/"
 
